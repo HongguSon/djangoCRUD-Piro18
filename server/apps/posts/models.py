@@ -4,7 +4,7 @@ from django.db import models
 # DB와 연결되는 파이썬 클래스를 models라고 한다
 
 class Post(models.Model):
-    title = models.CharField(max_length=32)
+    title = models.CharField(max_length=64)
     user = models.CharField(max_length=32)
     content = models.TextField()
     region = models.CharField(max_length=16)
