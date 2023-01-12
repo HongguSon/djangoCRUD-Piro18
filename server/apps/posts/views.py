@@ -1,11 +1,19 @@
 from django.shortcuts import render, redirect
 from server.apps.posts.models import Post
+
+from django.http.request import HttpRequest
+
 # Create your views here.
 def hello_world(request, *args, **kwargs):
     return render(request, "posts/hello_world.html")
 
-def posts_list(request, *args, **kwargs):
+def posts_list(request: HttpRequest, *args, **kwargs):
+    text = request.GET.get("text")
     posts = Post.objects.all()
+    
+    if text:
+        posts = posts.filter(content__contains=text)
+
     return render(request, "posts/posts_list.html", {"posts": posts})
 
 def posts_retrieve(request, pk, *args, **kwargs):
